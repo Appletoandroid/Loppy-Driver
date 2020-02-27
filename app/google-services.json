@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "582288977262",
+    "firebase_url": "https://loppy-96385.firebaseio.com",
+    "project_id": "loppy-96385",
+    "storage_bucket": "loppy-96385.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582288977262:android:67437c962662abcfc0657f",
+        "android_client_info": {
+          "package_name": "com.appleto.loppydriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582288977262-hclnccaapsok8lg3rggftndf9rs0igh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSC881eT5D4zfxqHHrf2MWE9wJmq8wAb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582288977262-hclnccaapsok8lg3rggftndf9rs0igh8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "582288977262-s79k7raq50bucje36b43jkv94srrnnhb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appleto.loppyuser"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582288977262:android:8a2efdaca7496369c0657f",
+        "android_client_info": {
+          "package_name": "com.appleto.loppyuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582288977262-hclnccaapsok8lg3rggftndf9rs0igh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSC881eT5D4zfxqHHrf2MWE9wJmq8wAb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582288977262-hclnccaapsok8lg3rggftndf9rs0igh8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "582288977262-s79k7raq50bucje36b43jkv94srrnnhb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appleto.loppyuser"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
