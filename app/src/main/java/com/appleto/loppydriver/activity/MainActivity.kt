@@ -1,8 +1,6 @@
 package com.appleto.loppydriver.activity
 
 import android.Manifest
-import android.content.Intent
-import android.content.IntentSender
 import android.os.Bundle
 import android.os.Looper
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -10,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.appleto.loppydriver.R
 import com.appleto.loppydriver.helper.Const
 import com.appleto.loppydriver.helper.PrefUtils
 import com.appleto.loppydriver.viewModel.MainActivityViewModel
@@ -18,13 +15,24 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import android.content.*
+import android.os.IBinder
+import com.appleto.loppydriver.R
+import com.appleto.loppydriver.service.LocationService
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), ServiceConnection {
+    override fun onServiceDisconnected(name: ComponentName?) {
+
+    }
+
+    override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+
+    }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
@@ -45,23 +53,25 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         Dexter.withActivity(this)
-            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-                    createLocationRequest()
-                }
-
+            .withPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            )
+            .withListener(object : MultiplePermissionsListener {
                 override fun onPermissionRationaleShouldBeShown(
-                    permission: PermissionRequest?,
+                    permissions: MutableList<PermissionRequest>?,
                     token: PermissionToken?
                 ) {
                     token?.continuePermissionRequest()
                 }
 
-                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    if (report?.areAllPermissionsGranted()!!) {
+                        createLocationRequest()
+                        val intent = Intent(this@MainActivity, LocationService::class.java)
+                        bindService(intent, this@MainActivity, Context.BIND_AUTO_CREATE)
+                    }
                 }
-
             }).check()
 
         locationCallback = object : LocationCallback() {
@@ -77,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                                 it, location.latitude, location.longitude
                             )
                         }
+                        fusedLocationClient.removeLocationUpdates(locationCallback)
                     }
                 }
             }
